@@ -13,19 +13,42 @@ const initialState: tableState = {
       action: "logged_in",
       action_created_at: new Date("2022-05-08T07:01:09.171245Z")
     }, {
-      username: "user-001",
+      username: "user-002",
       action: "button_sign_in_tapped",
       action_created_at: new Date("2022-05-08T07:02:09.171245Z")
-    },
-    {
-      username: "user-001",
+    }, {
+      username: "user-003",
+      action: "button_log_out_tapped",
+      action_created_at: new Date("2022-05-08T07:03:09.171245Z")
+    }, {
+      username: "user-004",
+      action: "logged_in",
+      action_created_at: new Date("2022-05-08T07:01:09.171245Z")
+    }, {
+      username: "user-005",
+      action: "button_sign_in_tapped",
+      action_created_at: new Date("2022-05-08T07:02:09.171245Z")
+    }, {
+      username: "user-006",
+      action: "button_log_out_tapped",
+      action_created_at: new Date("2022-05-08T07:03:09.171245Z")
+    }, {
+      username: "user-007",
+      action: "logged_in",
+      action_created_at: new Date("2022-05-08T07:01:09.171245Z")
+    }, {
+      username: "user-008",
+      action: "button_sign_in_tapped",
+      action_created_at: new Date("2022-05-08T07:02:09.171245Z")
+    }, {
+      username: "user-009",
       action: "button_log_out_tapped",
       action_created_at: new Date("2022-05-08T07:03:09.171245Z")
     }
   ]
 }
 
-const counterSlice = createSlice({
+const tableSlice = createSlice({
   name: "table",
   initialState,
   reducers: {
@@ -43,6 +66,6 @@ const counterSlice = createSlice({
   },
 });
 
-export const { remove } = counterSlice.actions;
+export const { remove } = tableSlice.actions;
 
-export default counterSlice.reducer;
+export default tableSlice.reducer;

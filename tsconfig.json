@@ -19,37 +19,37 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@components": [
-        "src/components"
+        "./src/components"
       ],
       "@styles/*": [
-        "src/styles/*"
+        "./src/styles/*"
       ],
       "@styles": [
-        "src/styles"
+        "./src/styles"
       ],
       "@redux/*": [
-        "src/redux/*"
+        "./src/redux/*"
       ],
       "@redux": [
-        "src/redux/"
+        "./src/redux"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@pages": [
+        "./src/pages"
       ],
       "@types": [
         "types"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@public": [
-        "public"
       ]
     },
     "incremental": true
   },
   "include": [
-    "src",
+    "./src/**/*",
     "**/*.ts",
     "**/*.tsx"
   ],

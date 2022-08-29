@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./index.module.scss";
 
-import { Logo } from "components/scss";
+import { Logo } from "../../sections";
 
 export const Header: React.FC = () => {
   return (
