@@ -23,12 +23,13 @@ export const NewTable: React.FC = () => {
                                 {Object.keys(table[0]).map((elem, index) =>
                                     <th key={index}>
                                         {elem}
-                                        <input type='text' placeholder='Search...' name={elem} onChange={(e) => handleChangeInput(e)} />
+                                        
+                                        <input type={table[0][elem] instanceof Date ? 'date' : 'text'} placeholder='Search...' name={elem} onChange={(e) => handleChangeInput(e)} />
                                     </th>
                                 )}
                             </tr>
                         </thead>
-                        {slice.length !== 0 &&
+                        {slice.length !== 0 ?
                             <tbody>
                                 {slice.map((obj, index) => (
                                     <tr key={index} className={`${s.tr} ${s.row}`}>
@@ -38,6 +39,9 @@ export const NewTable: React.FC = () => {
                                     </tr>
                                 ))
                                 }
+                            </tbody> :
+                            <tbody>
+                                <tr><td>No rows found</td></tr>
                             </tbody>
                         }
                     </table>

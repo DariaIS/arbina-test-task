@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, ChangeEventHandler } from 'react';
+import { useState, useEffect, useMemo, ChangeEventHandler } from 'react';
 import { useSelector } from "react-redux";
 
 import { RootState } from "@redux/reducers";
@@ -16,7 +16,7 @@ export const useTable = (props: Props) => {
     const [search, setSearch] = useState({
         username: '',
         action: '',
-        action_created_at: '',
+        action_created_at: new Date(0),
     });
 
     const table = useSelector((state: RootState) => state.table.table);
@@ -25,19 +25,28 @@ export const useTable = (props: Props) => {
         setSearch((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const searchRows = useCallback((data: tableType[]) => {
+    const searchRows = (data: tableType[], searchObj: {
+        username: string,
+        action: string,
+        action_created_at: Date
+    }) => {
+        console.log('search')
         return data.filter(item => {
-            const ifInclude = Object.keys(search).every(key => {
-                if (item[key].toString().includes(search[key])) {
+            const ifInclude = Object.keys(searchObj).every(key => {
+                if (item[key] instanceof Date) {
+                    const searchDate = new Date(searchObj[key]);
+                    if (searchDate.toDateString() === item[key].toDateString() || searchDate.getTime() === 0)
+                        return true;
+                } else if (item[key].includes(searchObj[key])) {
                     return true;
                 }
                 return false;
             })
             return ifInclude;
         });
-    }, [search]);
+    };
 
-    const calculateRange = (data: tableType[], rowsPerPage: number) => {
+    const calculateRange = (data: tableType[], rowsPerPage: number): number[] => {
         const range = [];
         const num = Math.ceil(data.length / rowsPerPage);
         for (let i = 1; i <= num; i++) {
@@ -50,15 +59,15 @@ export const useTable = (props: Props) => {
         return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
     };
 
+    let searchTable: tableType[] = useMemo(() => searchRows(table, search), [search, table]);
+
     useEffect(() => {
-        let items = searchRows(table);
-        const range = calculateRange(items, props.rowsPerPage);
-        setRange([...range]);
-        
-        items = sliceData(items, props.page, props.rowsPerPage);
-        setSlice([...items]);
-        console.log(items)
-    }, [searchRows, table, search, setRange, props.page, setSlice, props.rowsPerPage]);
+        const range = calculateRange(searchTable, props.rowsPerPage);
+        setRange(range);
+
+        const tempItems = sliceData(searchTable, props.page, props.rowsPerPage);
+        setSlice(tempItems);
+    }, [searchTable, search, props.page, props.rowsPerPage]);
 
     return {
         table,
