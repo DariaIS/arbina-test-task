@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const useTable = (props: Props) => {
-    const [range, setRange] = useState([0]);
+    const [range, setRange] = useState(0);
     const [slice, setSlice] = useState<tableType[]>([]);
     const [search, setSearch] = useState({
         username: '',
@@ -46,13 +46,8 @@ export const useTable = (props: Props) => {
         });
     };
 
-    const calculateRange = (data: tableType[], rowsPerPage: number): number[] => {
-        const range = [];
-        const num = Math.ceil(data.length / rowsPerPage);
-        for (let i = 1; i <= num; i++) {
-            range.push(i);
-        }
-        return range;
+    const calculateRange = (data: tableType[], rowsPerPage: number): number => {
+        return Math.ceil(data.length / rowsPerPage);
     };
 
     const sliceData = (data: tableType[], page: number, rowsPerPage: number) => {

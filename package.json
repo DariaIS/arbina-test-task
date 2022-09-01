@@ -19,6 +19,7 @@
     ]
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "@reduxjs/toolkit": "^1.6.0",
     "@types/node": "^18.7.3",
     "@types/react": "^17.0.4",

@@ -21,9 +21,8 @@ export const NewTable: React.FC = () => {
                         <thead>
                             <tr className={`${s.tr} ${s.header}`}>
                                 {Object.keys(table[0]).map((elem, index) =>
-                                    <th key={index}>
+                                    <th key={index} className={s.th}>
                                         {elem}
-                                        
                                         <input type={table[0][elem] instanceof Date ? 'date' : 'text'} placeholder='Search...' name={elem} onChange={(e) => handleChangeInput(e)} />
                                     </th>
                                 )}
@@ -46,15 +45,31 @@ export const NewTable: React.FC = () => {
                         }
                     </table>
                     <div className={s.pagination}>
-                        {range.map((el, index) => (
-                            <button
-                                key={index}
-                                className={`${s.paginationButton} ${page === el ? s.active : s.inactive}`}
-                                onClick={() => setPage(el)}
-                            >
-                                {el}
-                            </button>
-                        ))}
+                        <button className={`${s.paginationButton} ${page === 1 ? s.active : s.inactive}`}
+                            onClick={() => setPage(1)}
+                            disabled={page === 1}
+                        >
+                            {1}
+                        </button>
+                        <button className={s.paginationButton}
+                            onClick={() => setPage(prev => prev - 1)}
+                            disabled={page === 1}
+                        >
+                            {'<'}
+                        </button>
+                        <button className={s.paginationButton}
+                            onClick={() => setPage(prev => prev + 1)}
+                            disabled={page === range}
+                        >
+                            {'>'}
+                        </button>
+                        <button className={`${s.paginationButton} ${page === range ? s.active : s.inactive}`}
+                            onClick={() => setPage(range)}
+                            disabled={page === range}
+                        >
+                            {range}
+                        </button>
+                        {console.log(range)}
                     </div>
                 </>
             }

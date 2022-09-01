@@ -4,10 +4,6 @@
     margin-right: auto;
     padding-left: 15px;
     padding-right: 15px;
-
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
 }
 
 .tr {
@@ -19,13 +15,26 @@
 }
 
 .header {
-    background-color: #95A5A6;
-    font-size: 14px;
+    background-color: var(--black);
+    color: white;
     text-transform: uppercase;
     letter-spacing: 0.03em;
+    font-size: 1.1rem;
+}
+
+.th {
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
 }
 
 .row {
-    background-color: #ffffff;
+    background-color: var(--white);
     box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    // @media all and (max-width: 767px) {}
+}
+
+.td {
+    width: calc(100%/3);
 }
