@@ -10,20 +10,28 @@ export const NewTable: React.FC = () => {
         table,
         slice,
         range,
-        handleChangeInput
-    } = useTable({ page, rowsPerPage: 3 });
+        rowsPerPage,
+        minRows,
+        maxRows,
+        handleChangeSearch,
+        handleChangeRowsNum
+    } = useTable({ page });
 
     return (
         <>
             {table.length !== 0 &&
                 <>
+                    <input type="number"
+                        min={minRows} max={maxRows}
+                        value={rowsPerPage}
+                        onChange={(e) => handleChangeRowsNum(e)} />
                     <table className={s.table}>
                         <thead>
                             <tr className={`${s.tr} ${s.header}`}>
                                 {Object.keys(table[0]).map((elem, index) =>
                                     <th key={index} className={s.th}>
                                         {elem}
-                                        <input type={table[0][elem] instanceof Date ? 'date' : 'text'} placeholder='Search...' name={elem} onChange={(e) => handleChangeInput(e)} />
+                                        <input type={table[0][elem] instanceof Date ? 'date' : 'text'} placeholder='Search...' name={elem} onChange={(e) => handleChangeSearch(e)} />
                                     </th>
                                 )}
                             </tr>
@@ -69,7 +77,8 @@ export const NewTable: React.FC = () => {
                         >
                             {range}
                         </button>
-                        {console.log(range)}
+
+                        {/* {console.log(range)} */}
                     </div>
                 </>
             }

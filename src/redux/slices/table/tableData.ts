@@ -14,6 +14,5 @@ export function makeTableDate(len: number) {
     for (let i = 0; i < len; i++) {
         arr.push(newRow());
     }
-    console.log(arr)
     return arr;
 }

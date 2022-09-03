@@ -8,7 +8,7 @@ interface tableState {
 }
 
 const initialState: tableState = {
-    table: makeTableDate(10)
+    table: makeTableDate(100)
 }
 
 const tableSlice = createSlice({
