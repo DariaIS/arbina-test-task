@@ -36,6 +36,12 @@
       "@redux": [
         "./src/redux"
       ],
+      "@UIElements/*": [
+        "./src/components/UIElements/*"
+      ],
+      "@UIElements": [
+        "./src/components/UIElements"
+      ],
       "@pages/*": [
         "./src/pages/*"
       ],
@@ -49,6 +55,7 @@
     "incremental": true
   },
   "include": [
+    "./src/**/*.ts",
     "./src/**/*",
     "**/*.ts",
     "**/*.tsx"

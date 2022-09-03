@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo, ChangeEventHandler } from 'react';
 import { useSelector } from "react-redux";
 
-import { RootState } from "@redux/reducers";
+import { RootState } from "../../../../redux/reducers";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { remove } from '../../../../redux/slices/table';
 
 import { tableType } from "@types";
 
@@ -10,25 +12,35 @@ type Props = {
 };
 
 export const useTable = (props: Props) => {
+    const dispatch = useAppDispatch();
+
     const [range, setRange] = useState(0);
     const [slice, setSlice] = useState<tableType[]>([]);
     const [rowsPerPage, setRowsPerPage] = useState('3');
-    const [search, setSearch] = useState({
+    const [search, setSearch] = useState<tableType>({
         username: '',
         action: '',
-        action_created_at: new Date(0),
+        action_created_at: 0,
     });
 
     const [minRows, maxRows] = ['3', '15']
 
     const table = useSelector((state: RootState) => state.table.table);
 
+    const handleClickRemove = (obj: tableType) => {
+        dispatch(remove(obj))
+    };
+
     const handleChangeSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
-        setSearch(prev => ({ ...prev, [e.target.name]: e.target.value }));
+        console.log(typeof search[e.target.name])
+        const newValue =
+            typeof search[e.target.name] !== 'number' ? 
+            e.target.value : e.target.value === '' ? 0 : new Date(e.target.value).getTime();
+
+        setSearch(prev => ({ ...prev, [e.target.name]: newValue }));
     };
 
     const handleChangeRowsNum: ChangeEventHandler<HTMLInputElement> = (e) => {
-        console.log('get it', e.target.value)
         const [value, min, max] = [
             e.target.value,
             e.target.min,
@@ -43,17 +55,17 @@ export const useTable = (props: Props) => {
         setRowsPerPage(newVal);
     };
 
-    const searchRows = (data: tableType[], searchObj: {
-        username: string,
-        action: string,
-        action_created_at: Date
-    }) => {
-        // console.log('search')
+    const searchRows = (data: tableType[], searchObj: tableType) => {
         return data.filter(item => {
             const ifInclude = Object.keys(searchObj).every(key => {
-                if (item[key] instanceof Date) {
-                    const searchDate = new Date(searchObj[key]);
-                    if (searchDate.toDateString() === item[key].toDateString() || searchDate.getTime() === 0)
+                if (typeof item[key] === 'number') {
+                    const [searchDate, itemDate] = [
+                        new Date(searchObj[key]),
+                        new Date(item[key])
+                    ];
+                    if (searchDate.toDateString() === itemDate.toDateString()
+                        || searchDate.getTime() === 0
+                    )
                         return true;
                 } else if (item[key].includes(searchObj[key])) {
                     return true;
@@ -65,12 +77,10 @@ export const useTable = (props: Props) => {
     };
 
     const calculateRange = (data: tableType[], rowsPerPage: string): number => {
-        // console.log('calculateRange')
         return Math.ceil(data.length / parseInt(rowsPerPage, 10));
     };
 
     const sliceData = (data: tableType[], page: number, rowsPerPage: string) => {
-        console.log('sliceData', rowsPerPage)
         return data.slice((page - 1) * parseInt(rowsPerPage, 10), page * parseInt(rowsPerPage, 10));
     };
 
@@ -92,6 +102,7 @@ export const useTable = (props: Props) => {
         minRows,
         maxRows,
         handleChangeSearch,
-        handleChangeRowsNum
+        handleChangeRowsNum,
+        handleClickRemove
     };
 };

@@ -5,6 +5,7 @@ import Home from "./pages";
 
 import "./styles/normalize.css";
 import "./styles/variables.css";
+import "./styles/global.css";
 
 function App(): JSX.Element {
   return (

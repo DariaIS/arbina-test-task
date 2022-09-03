@@ -5,7 +5,7 @@ const newRow = (): tableType => {
     return {
         username: faker.internet.userName(),
         action: faker.git.commitMessage(),
-        action_created_at: faker.date.past(),
+        action_created_at: faker.date.past().getTime(),
     }
 }
 

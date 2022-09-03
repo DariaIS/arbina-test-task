@@ -5,13 +5,11 @@ html {
     --gray: #C4C4C4;
     --gray-dark: #AEAEAE;
     --gray-darken: #6A757C;
-    --black: #303233;
+    --black: #070C14;
 
-    --color-primary: #504FAC;
+    --color-primary: #303233;
     --color-secondary: #070C14;
-    --color-danger: #911F35;
-    --color-danger-bg: #FDD7DA;
-    --color-danger-border: #FCC6CB;
+    --color-danger: #F20000;
     --color-accept: #00A550;
 
     --font-size: 1rem;

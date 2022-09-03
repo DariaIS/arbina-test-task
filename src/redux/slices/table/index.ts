@@ -18,8 +18,8 @@ const tableSlice = createSlice({
         remove: (state, action: PayloadAction<tableType>) => {
             const index = state.table.findIndex(object => {
                 return (object.username === action.payload.username
-                    && object.username === action.payload.username
-                    && object.username === action.payload.username);
+                    && object.action === action.payload.action
+                    && object.action_created_at === action.payload.action_created_at);
             });
             state.table = [
                 ...state.table.slice(0, index),

@@ -1,11 +1,11 @@
 import React from "react";
 
-import { NewTable } from "../components/sections";
+import { Table } from "../components/sections";
 
 const Home: React.FC = () => {
   return (
     <div>
-      <NewTable />
+      <Table />
     </div>
   );
 };
