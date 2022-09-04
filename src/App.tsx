@@ -1,8 +1,11 @@
-import "styles/global.scss";
 import { Provider } from "react-redux";
-import store from "src/redux/store";
+import store from "./redux/store";
 
-import Home from "src/pages";
+import Home from "./pages";
+
+import "./styles/normalize.css";
+import "./styles/variables.css";
+import "./styles/global.css";
 
 function App(): JSX.Element {
   return (
