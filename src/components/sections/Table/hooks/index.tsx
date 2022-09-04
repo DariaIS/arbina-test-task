@@ -32,7 +32,6 @@ export const useTable = (props: Props) => {
     };
 
     const handleChangeSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
-        console.log(typeof search[e.target.name])
         const newValue =
             typeof search[e.target.name] !== 'number' ? 
             e.target.value : e.target.value === '' ? 0 : new Date(e.target.value).getTime();
@@ -58,16 +57,17 @@ export const useTable = (props: Props) => {
     const searchRows = (data: tableType[], searchObj: tableType) => {
         return data.filter(item => {
             const ifInclude = Object.keys(searchObj).every(key => {
-                if (typeof item[key] === 'number') {
+                const tempKey = key as (keyof typeof item);
+                if (typeof item[tempKey] === 'number') {
                     const [searchDate, itemDate] = [
-                        new Date(searchObj[key]),
-                        new Date(item[key])
+                        new Date(searchObj[tempKey]),
+                        new Date(item[tempKey])
                     ];
                     if (searchDate.toDateString() === itemDate.toDateString()
                         || searchDate.getTime() === 0
                     )
                         return true;
-                } else if (item[key].includes(searchObj[key])) {
+                } else if ((item[tempKey] as string).includes(searchObj[tempKey] as string)) {
                     return true;
                 }
                 return false;

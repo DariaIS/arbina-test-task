@@ -30,14 +30,13 @@ export const Table: React.FC = () => {
                         <Input type='number'
                             min={minRows} max={maxRows}
                             value={rowsPerPage}
-                            className={styles.input}
                             onChange={(e) => handleChangeRowsNum(e)}
                         />
                     </div>
                     <table className={styles.table}>
                         <thead>
                             <tr className={`${styles.tr} ${styles.header}`}>
-                                {Object.keys(table[0]).map((elem, index) =>
+                                {(Object.keys(table[0]) as (keyof typeof table[0])[]).map((elem, index) =>
                                     <th key={index} className={styles.th}>
                                         {elem}
                                         <Input type={typeof table[0][elem] === 'number' ? 'date' : 'text'}
@@ -52,7 +51,7 @@ export const Table: React.FC = () => {
                             <tbody>
                                 {slice.map((obj, index) => (
                                     <tr key={index} className={`${styles.tr} ${styles.row}`}>
-                                        {(Object.keys(slice[0]) as (keyof typeof obj)[]).map((elem, i) => (
+                                        {(Object.keys(obj) as (keyof typeof obj)[]).map((elem, i) => (
                                             elem in obj &&
                                             <td key={i} className={styles.td}>
                                                 {typeof obj[elem] === 'number' ? new Date(obj[elem]).toDateString() : obj[elem]}
@@ -88,7 +87,7 @@ export const Table: React.FC = () => {
                         <Button
                             className={styles.paginationButton}
                             isDisabled={page === range || range === 0}
-                            onClick={() => { console.log('ffff'); setPage(prev => prev + 1) }}
+                            onClick={() => setPage(prev => prev + 1)}
                         >
                             {'>'}
                         </Button>
