@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Input } from "../../UIElements/Input";
-import { Button } from "../../UIElements/Button";
+import { Input } from "../../UIElements/input";
+import { Button } from "../../UIElements/button";
 
 import { useTable } from './hooks/index';
 
